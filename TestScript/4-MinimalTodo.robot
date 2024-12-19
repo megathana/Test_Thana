@@ -13,6 +13,19 @@ Resource          ../Configuration/LocalConfig/Thana.robot
 
 *** Test Cases ***
 TC01_Verify user can add to do list success
+    [Documentation]    *Step*
+    ...    1. Open app : Minimal
+    ...    2. Click '+' button
+    ...    3. Enter title = วันเกิดแม่
+    ...    4. Click toggle for remind
+    ...    5. Click date field
+    ...    6. Click year and select year = 2024
+    ...    7. Click date = 15
+    ...    8. Click ok button
+    ...    9. Click submit button
+    ...
+    ...    *Expected*
+    ...    User can add to do list success
     # Expected ระบุชื่อ ปี วัน ที่จะสร้าง
     ${Title}    Set Variable    วันเกิดแม่
     ${Year}    Set Variable    2024
@@ -45,6 +58,18 @@ TC01_Verify user can add to do list success
     [Teardown]    Close Application
 
 TC02_Verify user can edit to do list success
+    [Documentation]    *Step*
+    ...    1. Open app : Minimal
+    ...    2. Click to do list = วันเกิดแม่
+    ...    3. Enter title for edit = วันเกิดพ่อ
+    ...    5. Click date field
+    ...    6. Click year and change year to = 2025
+    ...    7. Click date = 28
+    ...    7. Click ok button
+    ...    8. Click submit button
+    ...
+    ...    *Expected*
+    ...    User can edit to do list success
     # Expected ระบุชื่อ ปี วัน ที่จะแก้ไข
     ${TitleToSearch}    Set Variable    วันเกิดแม่
     ${TitleEditedTo}    Set Variable    วันเกิดพ่อ
@@ -75,9 +100,16 @@ TC02_Verify user can edit to do list success
     [Teardown]    Close Application
 
 TC03_Verify user can delete to do list success
+    [Documentation]    *Step*
+    ...    1. Open app : Minimal
+    ...    2. Swipe left on to do list = วันเกิดพ่อ
+    ...
+    ...    *Expected*
+    ...    User can delete to do list success
     # Expected ระบุชื่อที่จะลบ
-    ${Title}    Set Variable    วันเกิดพ่อ
+    ${TitleToSearch}    Set Variable    วันเกิดพ่อ
     # เปิดแอป Minimal ToDo
     Open Application    http://127.0.0.1:4723    platformName=Android    platformVersion=14    deviceName=A5CS024313002688    appPackage=com.avjindersinghsekhon.minimaltodo    appActivity=com.example.avjindersinghsekhon.toodle.MainActivity    noReset=true    unicodeKeyboard=true    automationName=UiAutomator2    newCommandTimeout=5000
-    mSwipeLeftOnElement    xpath=//android.widget.LinearLayout[@resource-id="com.avjindersinghsekhon.minimaltodo:id/listItemLinearLayout"]/*/*[@text="${Title}"]
+    # ปัด To do list ไปทางซ้ายเพื่อลบ
+    mSwipeLeftOnElement    xpath=//android.widget.LinearLayout[@resource-id="com.avjindersinghsekhon.minimaltodo:id/listItemLinearLayout"]/*/*[@text="${TitleToSearch}"]
     [Teardown]    Close Application
