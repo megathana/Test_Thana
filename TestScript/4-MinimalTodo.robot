@@ -7,9 +7,7 @@ Library           Dialogs
 Library           Process
 Library           DateTime
 Resource          ../Resource/PageRepositories/MinimalToDoList_Repository.robot
-Resource          ../Resource/PageVariable/MinimalToDoList_Variable.robot
 Resource          ../Resource/PageKeywords/MinimalToDoList_Keywords.robot
-Resource          ../Configuration/LocalConfig/Thana.robot
 
 *** Test Cases ***
 TC01_Verify user can add to do list success
