@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    environment {
+        GIT_REPO_URL = 'https://github.com/megathana/Test_Thana.git'
+        BRANCH = 'develop'
+    }
+
+    stages {
+        stage('Checkout Code From Git') {
+            steps {
+                echo 'Checking out code from GitHub...'
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "*/${BRANCH}"]],
+                    userRemoteConfigs: [[url: "${GIT_REPO_URL}"]]
+                ])
+            }
+        }
+
+        stage('Run All Test Suites in TestScript') {
+            steps {
+                echo 'Running all Test Suites in TestScript...'
+                bat '''
+                # Run all Robot Framework tests in the TestScript folder
+                robot -d reports/TestScript TestScript/
+                '''
+            }
+        }
+
+        stage('Send Result To Jenkins') {
+            steps {
+                echo 'Publishing test results...'
+                publishHTML(target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: true,
+                    keepAll: true,
+                    reportDir: 'reports/TestScript',
+                    reportFiles: 'log.html',
+                    reportName: 'TestScript Suite Report'
+                ])
+            }
+        }
+    }
+}

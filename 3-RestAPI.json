@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "f7242fde-54a9-441f-be8e-cf2acac19727",
+		"name": "Test Thana",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32772520"
+	},
+	"item": [
+		{
+			"name": "TC01_Get user profile success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const responseData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Data 'id' should be displayed is 12\", function () {\r",
+							"    pm.expect(responseData.data.id).to.eql(12);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data 'email' should be displayed is rachel.howell@reqres.in\", function () {\r",
+							"    pm.expect(responseData.data.email).to.eql(\"rachel.howell@reqres.in\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data 'first_name' should be displayed is Rachel\", function () {\r",
+							"    pm.expect(responseData.data.first_name).to.eql(\"Rachel\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data 'last_name' should be displayed is Howell\", function () {\r",
+							"    pm.expect(responseData.data.last_name).to.eql(\"Howell\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Data 'avatar' should be displayed is https://reqres.in/img/faces/12-image.jpg\", function () {\r",
+							"    pm.expect(responseData.data.avatar).to.eql(\"https://reqres.in/img/faces/12-image.jpg\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/12",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TC02_Get user profile but user not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response should be empty\", function () {\r",
+							"    pm.expect(pm.response.text()).to.eql(\"{}\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://reqres.in/api/users/1234",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users",
+						"1234"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
